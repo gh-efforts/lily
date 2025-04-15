@@ -60,7 +60,7 @@ func (V7SectorInfoExtractor) Extract(ctx context.Context, a actorstate.ActorInfo
 
 		replacedDayReward := sector.ReplacedDayReward
 		replacedDayRewardStr := "0"
-		if !replacedDayReward.Nil() {
+		if replacedDayReward != nil {
 			replacedDayRewardStr = replacedDayReward.String()
 		}
 
