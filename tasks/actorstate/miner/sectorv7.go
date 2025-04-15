@@ -59,16 +59,16 @@ func (V7SectorInfoExtractor) Extract(ctx context.Context, a actorstate.ActorInfo
 		}
 
 		replacedDayReward := sector.ReplacedDayReward
-		replacedDayRewardStr := replacedDayReward.String()
-		if replacedDayReward.Nil() {
-			replacedDayRewardStr = "0"
+		replacedDayRewardStr := "0"
+		if !replacedDayReward.Nil() {
+			replacedDayRewardStr = replacedDayReward.String()
 		}
 
 		// Daily Fee
 		dailyFee := sector.DailyFee
-		dailyFeeStr := dailyFee.String()
-		if dailyFee.Nil() {
-			dailyFeeStr = "0"
+		dailyFeeStr := "0"
+		if !dailyFee.Nil() {
+			dailyFeeStr = dailyFee.String()
 		}
 
 		sectorModel[i] = &minermodel.MinerSectorInfoV7{
