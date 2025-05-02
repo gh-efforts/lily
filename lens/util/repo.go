@@ -155,6 +155,10 @@ func ParseReturn(ret []byte, method abi.MethodNum, actCode cid.Cid) (_ string, _
 	p := reflect.New(m.Ret.Elem()).Interface().(cbg.CBORUnmarshaler)
 	if err := p.UnmarshalCBOR(bytes.NewReader(ret)); err != nil {
 		actorName := builtin.ActorNameByCode(actCode)
+		if actorName == "fil/15/verifiedregistry" && m.Name == "ClaimAllocations" {
+			log.Warnf("ignore parse message return cbor decode into %s %s:(%s.%d) return (hex): %s failed: %w", m.Name, actorName, actCode, method, hex.EncodeToString(ret), err)
+			return "", m.Name, nil
+		}
 		return "", m.Name, fmt.Errorf("parse message return cbor decode into %s %s:(%s.%d) return (hex): %s failed: %w", m.Name, actorName, actCode, method, hex.EncodeToString(ret), err)
 	}
 
